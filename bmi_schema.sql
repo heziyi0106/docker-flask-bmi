@@ -11,6 +11,14 @@ CREATE TABLE `user_bmi` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `site_visits`;
+
+CREATE TABLE `site_visits` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `visit_count` int(11) DEFAULT 0
+);
+
+
 INSERT INTO `user_bmi` (`id`, `height`, `weight`, `bmi`) VALUES 
 (3, 123, 12, 7.93),
 (4, 123, 24, 15.86),

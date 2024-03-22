@@ -58,7 +58,10 @@
     * 這樣可以正確 `docker-compose pull`。
 14. 當映像檔皆下載後，輸入 `docker-compose up`，檢查環境是否有建立成功，可以參見步驟8的內容(完全一樣)。
 
-
-
-
 ---
+
+## 【教學】更新github，透過github action自動更新docker images
+
+1. 進入github中的**[docker-flask-bmi](https://github.com/heziyi0106/docker-flask-bmi)**專案。點擊Actions，左側欄可以點New workflow(新增工作流)，往下拉找到docker的模板點Configure(配置)。
+2. 修改.yml文件，讓github偵測main分支，每偵測到一次推送，就更新並建立python和mysql的docker映像檔，並且將docker映像檔推送到docker hub。
+3. 嘗試更新本地的app.py，更新後先push到git上。理論上會自動更新docker image，可以打開docker桌面版來檢查狀態。

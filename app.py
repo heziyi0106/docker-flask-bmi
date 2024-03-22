@@ -59,5 +59,29 @@ def show():
 
     return render_template('result.html', data=data)
 
+@app.route('/test')
+def test():
+    # 創建 MySQL 連線
+    db_connection = mysql.connector.connect(**mysql_config)
+    cursor = db_connection.cursor()
+
+    # 更新访问次数的 SQL 语句
+    update_query = "UPDATE site_visits SET visit_count = visit_count + 1 WHERE id = 1"
+    cursor.execute(update_query)
+    db_connection.commit()
+
+    # 查询最新的访问次数
+    select_query = "SELECT visit_count FROM site_visits WHERE id = 1"
+    cursor.execute(select_query)
+    visit_count = cursor.fetchone()[0]
+
+    # 关闭游标和连接
+    cursor.close()
+    db_connection.close()
+
+    # return f'The website has been visited {visit_count} times.' 
+    return f'本網站已有 {visit_count} 次點擊.' 
+    
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
