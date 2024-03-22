@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS `site_visits`;
 
 CREATE TABLE `site_visits` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `visit_count` int(11) DEFAULT 0
+    `visit_count` int(11) DEFAULT 0,
+    UNIQUE KEY `id_UNIQUE` (`id`)
 );
 
 

@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 # MySQL 連線設定
 mysql_config = {
-    # 'host': '127.0.0.1', # 本地端運營時寫這行
-    'host': 'mysql',  # MySQL 服務的主機名稱（這是 Docker 容器的名稱）
+    'host': '127.0.0.1', # 本地端運營時寫這行
+    # 'host': 'mysql',  # MySQL 服務的主機名稱（這是 Docker 容器的名稱）
     'port': 3306,  # MySQL 服務的端口號（預設是 3306）
     'user': 'd_flask',
     'password': '123123',
@@ -40,7 +40,7 @@ def bmi():
         return render_template("index.html")
 
 @app.route('/')
-def index():
+def index():    
     return render_template("index.html")
 
 @app.route('/show')
@@ -73,12 +73,19 @@ def test():
     # 查询最新的访问次数
     select_query = "SELECT visit_count FROM site_visits WHERE id = 1"
     cursor.execute(select_query)
-    visit_count = cursor.fetchone()[0]
+    # visit_count = cursor.fetchone()[0]
+
+    row = cursor.fetchone()
+    if row is not None:
+        visit_count = row[0]
+    else:
+        visit_count = 0  # 设置默认值或者采取其他适当的操作
 
     # 关闭游标和连接
     cursor.close()
     db_connection.close()
 
+    
     # return f'The website has been visited {visit_count} times.' 
     return f'本網站已有 {visit_count} 次點擊.' 
     
