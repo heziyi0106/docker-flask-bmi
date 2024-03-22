@@ -6,7 +6,7 @@
 
    * 開啟docker，先將python映像檔pull下來。
    * 準備app.py和templates資料夾，置於C:\Users\user\OneDrive\Desktop\docker\01_bmi。
-   * 準備requirements.txt，只需要Flask和mysql-connector-python兩個模組(或將需要的套件寫在Dockerfile)。
+   * 準備requirements.txt，只需要Flask和mysql-connector-python兩個模組(或將需要的套件寫在Dockerfile)。![1711122234401](image/README/1711122234401.png)
    * 打開Cmd，切換至指定路徑。 `cd /d C:\Users\user\OneDrive\Desktop\docker\01_bmi` 。
 2. mysql
 
@@ -31,7 +31,7 @@
      * 在nginx，若本機port:80被占用，就要將 nginx 應用程序的容器端口修改，如"8188:80"。
      * 在mysql，若本機port:3306被占用，就要將mysql應用程序的容器端口修改，如"3307:3306"。
    * 這可以通過運行 `docker-compose down` 來停止容器，然後再運行 `docker-compose up` 或 `docker-compose up -d` 來重新啟動容器。這將應用新的 MySQL 連接設置並重新啟動 Flask 應用程式，原因在於docker啟動太快，可能還沒設置完畢就啟動flask，無法正確連接MySQL。
-   * 若是mysql發生沒有資料表的情況，可能是docker-compose up產生問題，這時候只好手動新建資料表(不建議重新賭一次建立成功的機率)並插入現有資料，語法詳見bmi_schema.sql。或是
+   * 若是mysql發生沒有資料表的情況，可能是docker-compose up產生問題，這時候只好手動新建資料表，並新增現有資料，語法詳見bmi_schema.sql。後來有發現可能是多了UNLOCK的語法，刪除即可在運行 `docker-compose up`的時候，新增資料庫後同時將資料表建立完成。
 8. 三個容器皆建立好後，於網址分別檢查flask和nginx是否正常顯示，mysql的資料庫、資料表是否建立成功。
 
    * 網址輸入127.0.0.1:5000檢查flask頁面顯示。
@@ -62,6 +62,9 @@
 
 ## 【教學】更新github，透過github action自動更新docker images
 
-1. 進入github中的**[docker-flask-bmi](https://github.com/heziyi0106/docker-flask-bmi)**專案。點擊Actions，左側欄可以點New workflow(新增工作流)，往下拉找到docker的模板點Configure(配置)。
-2. 修改.yml文件，讓github偵測main分支，每偵測到一次推送，就更新並建立python和mysql的docker映像檔，並且將docker映像檔推送到docker hub。
-3. 嘗試更新本地的app.py，更新後先push到git上。理論上會自動更新docker image，可以打開docker桌面版來檢查狀態。
+1. 進入github中的**[docker-flask-bmi](https://github.com/heziyi0106/docker-flask-bmi)**專案。點擊Actions，左側欄可以點New workflow(新增工作流)，往下拉找到docker的模板點Configure(配置)。![1711121899115](image/README/1711121899115.png)
+2. 修改.yml文件，讓github偵測main分支，每偵測到一次推送，就更新並建立python和mysql的docker映像檔，並且將docker映像檔推送到docker hub。![1711122037127](image/README/1711122037127.png)
+3. 嘗試更新本地的app.py，更新後先push到git上。理論上會自動更新docker image，可以打開actions看自動更新是否成功。
+
+   ![1711121798565](image/README/1711121798565.png)
+4.
