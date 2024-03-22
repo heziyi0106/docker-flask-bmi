@@ -10,11 +10,16 @@ services:
       MYSQL_DATABASE: docker_flask
       MYSQL_USER: d_flask
       MYSQL_PASSWORD: 123123
+    volumes:
+      - C:\Users\user\OneDrive\Desktop\docker\01_bmi\bmi_schema.sql:/docker-entrypoint-initdb.d/bmi_schema.sql
 
   flask:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # # 本地端建立，需先拉python映像
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # 別的主機進行docker-compose pull會拉此映像
+    image: happy0106/flask_bmi_image:latest #必須寫push到docker hub上的完整名稱
     ports:
       - "5000:5000"
     depends_on:
