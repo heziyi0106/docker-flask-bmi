@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: docker_flask
+      MYSQL_USER: d_flask
+      MYSQL_PASSWORD: 123123
+
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8188:80"
+    volumes:
+      - C:\Program Files\nginx-1.25.4\conf\nginx.conf:/etc/nginx/nginx.conf  # 此處確保路徑正確
+    depends_on:
+      - flask
