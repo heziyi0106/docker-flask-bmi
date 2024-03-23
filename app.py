@@ -40,7 +40,7 @@ def bmi():
         return render_template("index.html")
 
 @app.route('/')
-@app.route('/flask')
+@app.route('/flask/')
 def index():    
     return render_template("index.html")
 
