@@ -15,7 +15,7 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v2
         with:
-          # 每個要更新的image都要先做一次docker登入
+          # 每个要更新的 image 都要先做一次 docker 登录
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -34,7 +34,7 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v2
         with:
-          # 每個要更新的image都要先做一次docker登入
+          # 每个要更新的 image 都要先做一次 docker 登录
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -44,40 +44,21 @@ jobs:
           docker tag my_mysql_image happy0106/mysql_bmi_image
           docker push happy0106/mysql_bmi_image
 
-# name: Docker Update Images CI
+  update_nginx_component:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-# on:
-#   push:
-#     branches:
-#       - main
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          # 每个要更新的 image 都要先做一次 docker 登录
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-# jobs:
-#   update_python_component:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v2
-
-#       - name: Build and push Python image
-#         run: |
-#           docker build -t myflask .
-#           docker tag myflask happy0106/flask_bmi_image
-#           docker push happy0106/flask_bmi_image
-
-#   update_mysql_component:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v2
-
-#       - name: Docker Login
-#         uses: docker/login-action@v2
-#         with:
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_PASSWORD }}
-
-#       - name: Build and push MySQL image
-#         run: |
-#           docker build -t my_mysql_image .
-#           docker tag my_mysql_image happy0106/mysql_bmi_image
-#           docker push happy0106/mysql_bmi_image
+      - name: Build and push Nginx image
+        run: |
+          docker build -t my_nginx_image .
+          docker tag my_nginx_image happy0106/nginx_bmi_image
+          docker push happy0106/nginx_bmi_image
