@@ -64,6 +64,8 @@
 
 1. 進入github中的**[docker-flask-bmi](https://github.com/heziyi0106/docker-flask-bmi)**專案。點擊Actions，左側欄可以點New workflow(新增工作流)，往下拉找到docker的模板點Configure(配置)。![1711121899115](image/README/1711121899115.png)
 2. 修改.yml文件，讓github偵測main分支，每偵測到一次推送，就更新並建立python和mysql的docker映像檔，並且將docker映像檔推送到docker hub。![1711122037127](image/README/1711122037127.png)
+
+   * 要透過github actions來自動連線docker的話，須先建立secrets.DOCKER_USERNAME、secrets.DOCKER_PASSWORD，可以到Settings下拉看到Security，點擊Actions進去建立兩個secrets。![1711202558300](image/README/1711202558300.png)![1711202590778](image/README/1711202590778.png)
 3. 嘗試更新本地的app.py，更新後先push到git上。理論上會自動更新docker image，可以打開actions看自動更新是否成功。
 
    ![1711121798565](image/README/1711121798565.png)

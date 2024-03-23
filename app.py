@@ -14,7 +14,7 @@ mysql_config = {
     'auth_plugin': 'mysql_native_password'  # 如果需要，根據 MySQL 版本選擇驗證插件
 }
 
-@app.route("/bmi", methods=['GET','POST'])
+@app.route("/flask/bmi", methods=['GET','POST'])
 def bmi():
     if request.method == "POST":
         weight = float(request.form['weight'])
@@ -35,15 +35,16 @@ def bmi():
         cursor.close()
         db_connection.close()
 
-        return redirect("/show")
+        return redirect("/flask/show")
     else:
         return render_template("index.html")
 
 @app.route('/')
+@app.route('/flask')
 def index():    
     return render_template("index.html")
 
-@app.route('/show')
+@app.route('/flask/show')
 def show():
     # 創建 MySQL 連線
     db_connection = mysql.connector.connect(**mysql_config)
@@ -59,7 +60,7 @@ def show():
 
     return render_template('result.html', data=data)
 
-@app.route('/test')
+@app.route('/flask/test')
 def test():
     # 創建 MySQL 連線
     db_connection = mysql.connector.connect(**mysql_config)
